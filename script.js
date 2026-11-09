@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const toastNotice = document.getElementById('toast-notice');
   const contactForm = document.getElementById('contact-form');
 
-  // 1. Sticky Navbar on Scroll
+  // 1. Sticky Navbar on Scroll (Passive listener for 120Hz/144Hz high refresh displays)
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
-  });
+  }, { passive: true });
 
   // 2. Mobile Menu Toggle (Matching portfolio-site with full drawer & body scroll lock)
   if (menuToggle && navLinks) {
@@ -356,6 +356,11 @@ Opportunity Focus: ${senderRoleText}`;
         link.classList.add('active');
       }
     });
-  });
+  }, { passive: true });
+
+  // 11. Mobile / High-DPI Safety Fallback (OnePlus 15 & Modern Android fix)
+  setTimeout(() => {
+    window.dispatchEvent(new Event('scroll'));
+  }, 400);
 });
 

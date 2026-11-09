@@ -1105,6 +1105,7 @@ p {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: rgba(10, 28, 23, 0.92);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -1115,7 +1116,7 @@ p {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  padding: 2rem;
+  padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
 }
 
 .image-lightbox.active {
@@ -2122,6 +2123,7 @@ p {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: rgba(14, 43, 36, 0.75);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -2426,6 +2428,7 @@ textarea.form-control {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: rgba(14, 43, 36, 0.75);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -2789,15 +2792,20 @@ body {
     left: 0 !important;
     width: 100% !important;
     height: 100vh !important;
+    height: 100dvh !important;
     background-color: rgba(253, 251, 247, 0.98) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    padding: 5.5rem 1.75rem 2.5rem 1.75rem !important;
+    padding-top: max(5.5rem, calc(4.5rem + env(safe-area-inset-top))) !important;
+    padding-bottom: max(2.5rem, calc(1.5rem + env(safe-area-inset-bottom))) !important;
+    padding-left: max(1.75rem, env(safe-area-inset-left)) !important;
+    padding-right: max(1.75rem, env(safe-area-inset-right)) !important;
     gap: 0.85rem !important;
     box-shadow: 0 15px 35px rgba(21, 62, 53, 0.25) !important;
     z-index: 999999 !important;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
     animation: menuFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
