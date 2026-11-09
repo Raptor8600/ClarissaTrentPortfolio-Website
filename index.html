@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#153e35">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -36,7 +36,7 @@
         <span class="logo-title">Lilly Family School of Philanthropy &bull; Advancement</span>
       </div>
 
-      <!-- Desktop Navigation Links (Single-Line, No-Wrap) -->
+      <!-- Desktop & Mobile Navigation Links -->
       <nav>
         <ul class="nav-links" id="nav-links">
           <li><a href="#about" class="nav-link">About</a></li>
@@ -47,12 +47,29 @@
           <li><a href="#thesis" class="nav-link">Thesis</a></li>
           <li><a href="#initiatives" class="nav-link">Projects</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
+          <!-- Mobile Drawer Action Buttons (Visible inside mobile drawer) -->
+          <li class="nav-btn-group">
+            <a href="ClarissaTrentResume.pdf" target="_blank" class="nav-btn-resume"
+              title="Open or download Clarissa's Official PDF Resume">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>Download Resume (PDF)</span>
+            </a>
+            <button type="button" class="nav-btn-preview js-open-resume js-preview-modal" title="Quick Preview in Modal">
+              <span>Quick Preview Resume</span>
+            </button>
+          </li>
         </ul>
       </nav>
 
-      <!-- Navigation Resume & Action Buttons -->
+      <!-- Navigation Resume & Action Buttons (Desktop header & Mobile toggle) -->
       <div class="nav-cta-group">
-        <a href="ClarissaTrentResume.pdf" target="_blank" class="nav-btn-resume"
+        <a href="ClarissaTrentResume.pdf" target="_blank" class="nav-btn-resume desktop-only"
           title="Open or download Clarissa's Official PDF Resume">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -64,14 +81,17 @@
           <span>Resume (PDF)</span>
         </a>
 
-        <button type="button" class="nav-btn-preview js-open-resume js-preview-modal" title="Quick Preview in Modal">
+        <button type="button" class="nav-btn-preview desktop-only js-open-resume js-preview-modal" title="Quick Preview in Modal">
           <span>Quick View</span>
         </button>
 
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
-          <span></span>
-          <span></span>
-          <span></span>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <svg class="icon-hamburger" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" x2="21" y1="6" y2="6" class="line-top" />
+            <line x1="3" x2="21" y1="12" y2="12" class="line-mid" />
+            <line x1="3" x2="21" y1="18" y2="18" class="line-bot" />
+          </svg>
         </button>
       </div>
     </div>
@@ -472,6 +492,12 @@
               <li>Collaborate on annual giving strategies and database administration to advance library branch
                 resources across Marion County.</li>
             </ul>
+
+            <div class="exp-photo-thumb exp-photo-badge">
+              <img src="Images/The Indianapolis Public Library Foundation Badge Photo.jpg"
+                alt="Clarissa Trent Staff Identification Badge — The Indianapolis Public Library Foundation">
+              <div class="exp-photo-caption">The Indianapolis Public Library Foundation &bull; Staff Credential</div>
+            </div>
             <div class="exp-tags">
               <span class="exp-tag">Public Library Foundation</span>
               <span class="exp-tag">Donor Research</span>

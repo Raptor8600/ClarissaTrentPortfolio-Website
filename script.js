@@ -25,27 +25,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Menu Toggle
+  // 2. Mobile Menu Toggle (Matching portfolio-site with full drawer & body scroll lock)
   if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      const isOpen = navLinks.classList.contains('open');
-      menuToggle.setAttribute('aria-expanded', isOpen);
-    });
+    function toggleMenu(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      navLinks.classList.toggle('active');
+      const isActive = navLinks.classList.contains('active');
+      menuToggle.setAttribute('aria-expanded', isActive);
+      menuToggle.classList.toggle('active', isActive);
 
-    // Close menu when clicking any nav item
-    navLinks.querySelectorAll('a').forEach(link => {
+      // Lock body scroll when mobile menu is open to prevent background scrolling
+      document.body.style.overflow = isActive ? 'hidden' : '';
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // Close Mobile Menu when clicking any nav item or button
+    navLinks.querySelectorAll('a, button').forEach(link => {
       link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       });
     });
 
     // Close menu when tapping outside on mobile
     document.addEventListener('click', (e) => {
-      if (navLinks.classList.contains('open') && !navbar.contains(e.target)) {
-        navLinks.classList.remove('open');
+      if (navLinks.classList.contains('active')) {
+        const isClickInside = navLinks.contains(e.target);
+        const isClickOnToggle = menuToggle.contains(e.target);
+        if (!isClickInside && !isClickOnToggle) {
+          navLinks.classList.remove('active');
+          menuToggle.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       }
     });
   }
@@ -247,23 +275,38 @@ Opportunity Focus: ${senderRoleText}`;
     });
   }
 
-  // 8. Image Lightbox for Gallery Photos
+  // 8. Image Lightbox for High-Res Zoom on Click / Tap
   const lightbox = document.getElementById('image-lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCaption = document.getElementById('lightbox-caption');
   const lightboxClose = document.getElementById('lightbox-close');
-  const galleryItems = document.querySelectorAll('.gallery-card img, .fellowship-img');
+  const zoomableImages = document.querySelectorAll(
+    '.gallery-card img, .exp-photo-thumb img, .speaking-img, .hero-full-photo'
+  );
 
-  galleryItems.forEach(img => {
+  zoomableImages.forEach(img => {
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => {
       if (!lightbox || !lightboxImg) return;
       lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt || 'Clarissa Trent Advancement Gallery';
+      lightboxImg.alt = img.alt || 'Clarissa Trent Advancement Photo';
+
       if (lightboxCaption) {
-        const parentCard = img.closest('.gallery-card');
-        const captionText = parentCard ? parentCard.querySelector('.gallery-caption')?.textContent : img.alt;
-        lightboxCaption.textContent = captionText || '';
+        const galleryParent = img.closest('.gallery-card');
+        const expParent = img.closest('.exp-photo-thumb');
+        const speakingParent = img.closest('.speaking-img-wrapper');
+
+        let caption = '';
+        if (galleryParent && galleryParent.querySelector('.gallery-caption')) {
+          caption = galleryParent.querySelector('.gallery-caption').textContent;
+        } else if (expParent && expParent.querySelector('.exp-photo-caption')) {
+          caption = expParent.querySelector('.exp-photo-caption').textContent;
+        } else if (speakingParent && speakingParent.querySelector('.speaking-caption-title')) {
+          caption = speakingParent.querySelector('.speaking-caption-title').textContent;
+        } else {
+          caption = img.alt || '';
+        }
+        lightboxCaption.textContent = caption;
       }
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
